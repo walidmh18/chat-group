@@ -1,0 +1,175 @@
+.leftMenu{
+   background: var(--grey1);
+   color: var(--light1);
+   height: 100dvh;
+   width: 20rem;
+   display: flex;
+   flex-direction: column;
+   -webkit-box-shadow: 2px 0 10px 1px rgba(0, 0, 0, 0.25);
+   -moz-box-shadow: 2px 0 10px 1px rgba(0, 0, 0, 0.25);
+   box-shadow: 2px 0 10px 1px rgba(0, 0, 0, 0.25);
+   position: sticky;
+   top: 0;
+   left: 0;
+   z-index: 5;
+}
+.closeNavbar{
+   display: none;
+}
+.leftMenu .top{
+   padding: 2rem;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   box-shadow: var(--shadow);
+}
+.leftMenu .top button{
+   background: var(--grey2);
+   border-radius: 5px;
+   width: 2rem;
+   aspect-ratio: 1/1;
+   text-align: center;
+}
+.leftMenu .allChannels , .leftMenu .channelInfo{
+   flex-grow: 1;
+   display: flex;
+   flex-direction: column;
+}
+.leftMenu .core{
+   flex-grow: 1;
+   padding: 2rem;
+}
+.leftMenu .search{
+   position: relative;
+   height: 3rem;
+   margin-bottom: 2rem;
+}
+
+.leftMenu .search :is(i,input){
+   position: absolute;
+}
+
+.leftMenu .search i{
+   left: 8px;
+   top: 50%;
+   transform: translateY(-50%);
+   z-index: 1;
+}
+
+.leftMenu .search input{
+   height: 100%;
+   width: 100%;
+   background: var(--grey3);
+   z-index: 0;
+   padding: 1rem 1rem 1rem 2rem;
+   color: var(--light1);
+   border-radius: 1rem;
+
+}
+
+.channel{
+   display: flex;
+   padding: 11px;
+   gap: 1rem;
+   text-transform: uppercase;
+   align-items: center;
+   border-radius: 1rem;
+}
+.channel .logo{
+   background: var(--grey2);
+   width: 2rem;
+   aspect-ratio: 1/1;
+   display: grid;
+   place-items: center;
+   border-radius: 5px;
+   transition: 0.3s;
+}
+.bottom>button{
+   transition: 0.3s;
+}
+.bottom>button:hover{
+   transform: translateY(2px);
+   color: white;
+}
+
+.channel:hover{
+   background: var(--grey3);
+}
+
+.bottom{
+   background: var(--dark);
+   padding: 1rem;
+   display: flex;
+   justify-content: space-between;
+   position: relative;
+}
+.bottom img{
+   width: 3rem;
+   aspect-ratio: 1/1;
+   object-fit: cover;
+   border-radius: 100vmax;
+}
+.bottom .profile{
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+
+}
+
+.bottom .actionBtns a{
+   display: block;
+}
+.bottom .actionBtns :is(a,button){
+   padding: 1rem;
+   border-radius: 1rem;
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+}
+.bottom .actionBtns hr{
+   margin: 0.5rem 0;
+}
+
+.bottom .actionBtns :is(a,button):hover{
+   background: var(--grey3);
+}
+
+.bottom .actionBtns button{
+   color: var(--red);
+}
+
+.bottom .actionBtns{
+   position: absolute;
+   right: 2rem; 
+   bottom: 2rem;
+   padding: 1rem;
+   border-radius: 2rem;
+   background: var(--grey2);
+   display: none;
+}
+
+.bottom .actionBtns.active{
+   display: block;
+}
+
+@media (max-width:1000px) {
+   .leftMenu{
+      position: fixed;
+      left: -25rem;
+      transition: 0.5s ease-in-out;
+   }
+   .leftMenu.active{
+      left: 0;
+   }
+   .closeNavbar{
+      position: absolute;
+      right: -4rem;
+      top: 1rem;
+      background: var(--grey1);
+      width: 3rem;
+      aspect-ratio: 1/1;
+      display: grid;
+      place-content: center;
+      border-radius: 1rem;
+   }
+}
