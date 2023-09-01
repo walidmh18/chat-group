@@ -96,6 +96,85 @@
    background: var(--grey3);
 }
 
+.channelInfo .name{
+   font-size: 1.2rem;
+   font-weight: 600;
+   text-transform: uppercase;
+}
+
+.channelInfo .description{
+   margin: 2rem 0;
+}
+
+.channelInfo .output{
+   background: var(--grey3);
+   padding: 1rem;
+   border-radius: 1rem;
+   position: relative;
+   width: 100%;
+
+}
+
+.channelInfo .output p{
+   /* width: calc(100% - 3rem); */
+   /* max-width: 100%; */
+   /* white-space: wrap; */
+   /* display: inline-block; */
+   display: -webkit-box;
+   -webkit-line-clamp: 1;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+
+}
+/* 
+.channelInfo .output p::after{
+   content: '...';
+   display: block;
+   float: right;
+} */
+
+
+
+.channelInfo .output button{
+   position: absolute;
+   height: 80%;
+   aspect-ratio: 1/1;
+   display: grid;
+   place-content: center;
+   top: 50%;
+   transform: translateY(-50%);
+   right: 5px;
+   background: var(--grey1);
+   border-radius: 10px;
+}
+
+.members {
+   margin-top: 3rem;
+}
+.members h2{
+   margin-bottom: 1rem;
+}
+
+.members .profile{
+   display: flex;
+   height: 3rem;
+   align-items: center;
+   padding: 6px;
+   border-radius: 1rem;
+   gap: 1rem;
+   margin-bottom: 1rem;
+}
+
+.members .profile:hover{
+   background: var(--grey2);
+}
+
+.members .profile img{
+   border-radius: 10px;
+   max-height: 100%;
+
+}
+
 .bottom{
    background: var(--dark);
    padding: 1rem;

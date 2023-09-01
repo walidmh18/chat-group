@@ -25,6 +25,7 @@ if (isset($_POST['submit'])) {
       id          INT(11)        UNSIGNED   AUTO_INCREMENT PRIMARY KEY,
       msgAuthor   VARCHAR(255)   NOT NULL,
       msgContent  VARCHAR(255)   NOT NULL,
+      msgTime     VARCHAR(255)   NOT NULL,
       replyto     VARCHAR(255)     
     )";
    

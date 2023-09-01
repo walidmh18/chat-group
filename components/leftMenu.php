@@ -9,7 +9,7 @@ if (isset($_SESSION['username'])) {
 } else {
    header('Location:../login');
 } ?>
-<link rel="stylesheet" href="../components/leftMenuaa.css">
+<link rel="stylesheet" href="../components/leftMenau.css">
 <div class="leftMenu">
    <nav class="allChannels" style="display: none;">
       <div class="top">
@@ -50,7 +50,7 @@ if (isset($_SESSION['username'])) {
                   
                   $logo = implode("", $first_letters);
                   
-                  echo '<a href="../groups?id='.$row['name'].'&name='.$name.'" class="channel">
+                  echo '<a href="../chat?id='.$row['name'].'&name='.$name.'" class="channel">
                   <div class="logo">'.$logo.'</div>
                   <div class="name">'.$name.'</div>
                </a>';
@@ -66,16 +66,66 @@ if (isset($_SESSION['username'])) {
    </nav>
    <nav class="channelInfo">
       <div class="top">
-         <button><i class="fa-solid fa-chevron-left"></i></button>
+         <script>
+            function allChannels(){
+               document.querySelector('.channelInfo').style.display = 'none'
+               document.querySelector('.allChannels').style.display = 'flex'
+            }
+         </script>
+         <button onclick="allChannels()"><i class="fa-solid fa-chevron-left"></i></button>
          <p>All Channels</p>
       </div>
       <div class="core">
-         <p class="name">web developers</p>
-         <div class="output">aklsjdf;akjdf;</div>
-         <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia totam tenetur deserunt eos facilis accusantium qui, corporis quis eligendi ratione.</p>
+         <?php 
+            $id = $_GET['id'];
+         
+         $sql = "SELECT * FROM `groups` WHERE name='$id'";
+         $queryy = mysqli_query($con,$sql);
+         $group = mysqli_fetch_array($queryy , MYSQLI_ASSOC);
+           
+         $desc = $group['description'];
+         ?>
+         <p class="name"><?php echo $_GET['name']; ?></p>
+         <p class="description"><?php echo $desc; ?></p>
+         <div class="output"><p>http://localhost/chat-group/components/addtogrp.php/?grp=<?php echo $_GET['id']; ?>&name=<?php echo $_GET['name']; ?> </p>
+         <button onclick="copytoclipb(this.previousElementSibling.querySelector('p').innerText)"><i class="fa-regular fa-copy"></i></button></div>
+         <div class="members">
+            <h2>MEMBERS</h2>
 
+            <?php
+            $id = $_GET['id'];
+            // echo $id;
+
+            $sql = "SELECT * FROM `groups` WHERE name='$id'";
+            $query = mysqli_query($con,$sql);
+
+            while($row = mysqli_fetch_array($query, MYSQLI_ASSOC)){
+               // echo '<pre>';
+               // print_r($row);
+               // echo '</pre>';
+               $members = json_decode($row['members']);
+               foreach($members as $x){
+                  // echo $x;
+                  $sql = "SELECT * FROM users WHERE id = '$x'";
+                  $query = mysqli_query($con,$sql);
+                  while ($member = mysqli_fetch_array($query , MYSQLI_ASSOC)) {
+                     // echo '<pre>';
+                     // print_r($member);
+                     // echo '</pre>';
+                     echo '<div class="profile">
+                     <img src="'. $member['profile_pic'] .'" alt="'. $member['username'] .'">
+                     <p class="name">'. $member['username'] .'</p>
+                     </div>';
+                  }
+               }
+            }
+            ?>
+            
+
+         </div>
       </div>
    </nav>
+
    <div class="bottom">
       <div class="profile">
          <img src="<?php echo $_SESSION['img']; ?>" alt="">
