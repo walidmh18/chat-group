@@ -17,13 +17,13 @@ while ($row = mysqli_fetch_array($query,MYSQLI_ASSOC)) {
    $sql = "SELECT * FROM users WHERE username='$username' ";
    $user = mysqli_fetch_array(mysqli_query($con,$sql),MYSQLI_ASSOC);
    $currTime = strtotime(date("Y-m-d H:i:s"));
-   $msgTime = $row['msgTime'] + 3600;
-   if (date("Y-m-d", $currTime) == date("Y-m-d", $msgTime)) {
+   $msgTime = $row['msgTime'] - 3600;
+   if (date("Y-m-d", $currTime) == date("Y-m-d", $msgTime) || $currTime - $msgTime< 3600*24) {
       $time = 'Today, '.date("H:i",$msgTime);
    } else if ($currTime - $msgTime< 3600*24*2){
       $time = 'Yesterday, '.date("H:i",$msgTime);
    } else{
-      $time = date("Y-m-d",$msgTime).date("H:i",$msgTime);
+      $time = date("Y-m-d",$msgTime).' '.date("H:i",$msgTime);
 
    }
 

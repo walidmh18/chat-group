@@ -1,10 +1,9 @@
 <?php
 include('./connection.php');
 session_start();
-$_SESSION['username'] = 'walid2';
-$_SESSION['id'] = '2';
+
 $grp = $_GET['grp'];
-$name = $_GET['name'];
+$name = $_GET['n'];
 $username = $_SESSION['username'];
 $id = $_SESSION['id'];
 
@@ -24,7 +23,7 @@ $members=json_decode($row['members']);
 
 
 if (in_array($id,$members)) {
-   header('Location: ../../chat?id='.$grp.'&name='.$name);
+   header('Location: ../../chat?id='.$grp.'&n='.$name);
 } else {
    array_push($members,$id);
    $nmembers = json_encode($members);
@@ -33,7 +32,7 @@ if (in_array($id,$members)) {
    echo '</pre>';
    $sql = "UPDATE `groups` SET members='$nmembers' WHERE name='$grp'";
    $res = mysqli_query($con,$sql);
-   header('Location: ../../chat?id='.$grp.'&name='.$name);
+   header('Location: ../../chat?id='.$grp.'&n='.$name);
 }
 
 ?>

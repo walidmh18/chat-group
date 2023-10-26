@@ -1,11 +1,32 @@
 <?php
-include('../components/head.php')
+include('../components/head.php');
+if(!isset($_SESSION['username'])){
+   header('Location:../components/login.php');
+}
+
+
 ?>
+
+
+
+<script src="script.js" defer></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 <body>
    <div class="container">
-   <?php  include('../components/leftMenu.php') ?>
+   <?php  include('../components/leftMenu.php') ;
+   
+   if(isset($_GET['id'])){
+   $id =$_GET['id'];
+   $n = $_GET['n'];
+   
+   
+   } else{
+      $n = '';
+
+   }
+   
+   ?>
    <div class="body">
       <nav class="top">
          <div class="navToggle">
@@ -16,7 +37,7 @@ include('../components/head.php')
                 <div class="bar bar--3"></div>
             </label>
          </div>
-         <p class="channelName">web developers</p>
+         <p class="channelName"><?php echo $n; ?></p>
       </nav>
       <div class="msgArea" id="msgArea">
          <!-- <div class="msg">
@@ -32,7 +53,9 @@ include('../components/head.php')
 
 
       </div>
-      <div class="msgInp">
+      <div class="msgInp" style="<?php if(!isset($n) || empty($n)){
+         echo 'display: none;';
+      } ?>">
          <div class="inputWrapper">
             <input type="text" id="msg" name="msg" placeholder="Message" min="1">
             <button id="sendMsgBtn" class="sendMsg"><i class="fa-solid fa-paper-plane-top"></i></button>
@@ -57,25 +80,25 @@ include('../components/head.php')
                      },
                      dataType:'html',
                      success:function(data){
-                        
+                        // console.log('walid');
                         let array= JSON.parse(data)
                         maxId = array[0]
                         // console.log(maxId);
-                        console.log(array[1])
+                        // console.log(array[1])
                         // array.forEach(e => {
                            //    console.log(e);
                            // });
                            array[1].forEach(el=>{
                            $('#msgArea').prepend(` <div class="msg">
-    <div class="pfp"><img src="${el.pfp}" alt=""></div>
-    <div class="msgcore">
-       <div class="details">
-          <p class="name">${el.username}</p>
-          <p class="date">${el.time}</p>
-</div>
-       <p class="content">${el.content}</p>
-    </div>
- </div> `);
+                           <div class="pfp"><img src="${el.pfp}" alt=""></div>
+                           <div class="msgcore">
+                              <div class="details">
+                                 <p class="name">${el.username}</p>
+                                 <p class="date">${el.time}</p>
+                        </div>
+                              <p class="content">${el.content}</p>
+                           </div>
+                        </div> `);
 
                         })
                      }
@@ -119,7 +142,28 @@ include('../components/head.php')
 
                   })
 
-               })
+               });
+               $('#msg').on('keypress',function(e) {
+                  if(e.which == 13) {
+                     let msg = $('#msg').val();
+                  let queryString = new URLSearchParams(window.location.search);
+                  let grp = queryString.get('id');
+
+                  $.ajax({
+                     type: 'POST',
+                     url : '../components/sendMsg.php',
+                     data:{
+                        
+                        msg:msg,
+                        grp:grp
+                     },
+                     success:function(){
+                        $('#msg').val('');
+                     }
+
+                  })
+                  }
+               });
             })
          </script>
       </div>

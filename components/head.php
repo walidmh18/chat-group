@@ -31,7 +31,7 @@ session_start();
         rel="stylesheet"
         href="https://site-assets.fontawesome.com/releases/v6.4.2/css/sharp-light.css"
       >
-   <link rel="stylesheet" href="steyle.css">
+   <link rel="stylesheet" href="style.css">
    <script src="./script.js" defer></script>
    <title>Document</title>
 

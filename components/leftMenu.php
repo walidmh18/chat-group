@@ -1,9 +1,6 @@
 
 <?php 
-$_SESSION['username']= 'walid';
-$_SESSION['id'] = '1';
-$_SESSION['img'] = 'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg';
-
+// echo 'jsdfk';
 if (isset($_SESSION['username'])) {
    $username = $_SESSION['username'];
 } else {
@@ -11,7 +8,14 @@ if (isset($_SESSION['username'])) {
 } ?>
 <link rel="stylesheet" href="../components/leftMenau.css">
 <div class="leftMenu">
-   <nav class="allChannels" style="display: none;">
+   <nav class="allChannels" style="<?php 
+   if (isset($_GET['id']) && isset($_GET['n'])) {
+      echo 'display:none;';
+   } else {
+      
+      echo 'display:flex;';
+   }
+   ?>">
       <div class="top">
          <p>Channels</p>
          <button onclick="showPopup('.popupContainer.addChannelPopupContainer')"><i class="fa-solid fa-plus"></i></button>
@@ -50,7 +54,7 @@ if (isset($_SESSION['username'])) {
                   
                   $logo = implode("", $first_letters);
                   
-                  echo '<a href="../chat?id='.$row['name'].'&name='.$name.'" class="channel">
+                  echo '<a href="../chat?id='.$row['name'].'&n='.$name.'" class="channel">
                   <div class="logo">'.$logo.'</div>
                   <div class="name">'.$name.'</div>
                </a>';
@@ -64,7 +68,16 @@ if (isset($_SESSION['username'])) {
          </div>
       </div>
    </nav>
-   <nav class="channelInfo">
+   <nav class="channelInfo" style = "
+   <?php 
+   if (isset($_GET['id']) && isset($_GET['n'])) {
+      echo 'display:flex;';
+   } else {
+      echo 'display:none;';
+
+   }
+   ?>
+   ">
       <div class="top">
          <script>
             function allChannels(){
@@ -85,9 +98,9 @@ if (isset($_SESSION['username'])) {
            
          $desc = $group['description'];
          ?>
-         <p class="name"><?php echo $_GET['name']; ?></p>
+         <p class="name"><?php echo $_GET['n']; ?></p>
          <p class="description"><?php echo $desc; ?></p>
-         <div class="output"><p>http://localhost/chat-group/components/addtogrp.php/?grp=<?php echo $_GET['id']; ?>&name=<?php echo $_GET['name']; ?> </p>
+         <div class="output"><p>http://localhost/walid/chat-group-main/components/addtogrp.php/?grp=<?php echo $_GET['id']; ?>&n=<?php echo $_GET['n']; ?> </p>
          <button onclick="copytoclipb(this.previousElementSibling.querySelector('p').innerText)"><i class="fa-regular fa-copy"></i></button></div>
          <div class="members">
             <h2>MEMBERS</h2>
@@ -150,7 +163,7 @@ if (isset($_SESSION['username'])) {
          <a href="../profile?id=1"><i class="fa-solid fa-user"></i>   Profile</a>
          <a href="../tweeter"><i class="fa-light fa-mountains"></i>   twitter</a>
          <hr>
-         <button class="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i>   Logout</button>
+         <a href="../components/logout.php" class="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i>   Logout</a>
       </div>
    </div>
          <button class="closeNavbar" onclick="closeNav()"><i class="fa-solid fa-xmark"></i></button>
